@@ -1,0 +1,69 @@
+﻿@model Roflan.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Register - way you register service";
+}
+<div class="container text-center">
+    @using (Html.BeginForm("Register", "Authorize", FormMethod.Post, new { @class = "form-horizontal" }))
+    {
+        <center>
+            <h2>Registration Form</h2>
+        </center>
+        <div class="form-group">
+            <label for="firstName" class="col-sm-3 control-label">First Name</label>
+            <div class="col-sm-4">
+                <input type="text" name="FirstName" placeholder="First Name" class="form-control" autofocus>
+                @Html.ValidationMessageFor(model=>model.FirstName)
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="lastName" class="col-sm-3 control-label">Last Name</label>
+            <div class="col-sm-4">
+                <input type="text" name="LastName" placeholder="Last Name" class="form-control" autofocus>
+                @Html.ValidationMessageFor(model => model.LastName)
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="email" class="col-sm-3 control-label">Email</label>
+            <div class="col-sm-4">
+                <input type="text" name="Email" placeholder="Email" class="form-control" autofocus>
+                @Html.ValidationMessageFor(model => model.Email)
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="password" class="col-sm-3 control-label">Password</label>
+            <div class="col-sm-4">
+                <input type="password" name="Password" placeholder="Password" class="form-control">
+                @Html.ValidationMessageFor(model => model.Password)
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Confirm Password" class="col-sm-3 control-label">Confirm Password</label>
+            <div class="col-sm-4">
+                <input type="password" name="NewPassword" placeholder="Confirm Password" class="form-control">
+                @Html.ValidationMessageFor(model => model.NewPassword)
+            </div>
+        </div>
+        <!-- /.form-group -->
+        @*<div class="form-group">
+            <label class="control-label col-sm-3">Gender</label>
+            <div class="col-sm-6">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label class="radio-inline">
+                            <input type="radio" id="femaleRadio" value="Female">Female
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" id="maleRadio" value="Male">Male
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>*@
+        <div class="form-group">
+            <div class="col-md-2 col-sm-offset-3">
+                <button type="submit" class="btn btn-danger">Submit</button>
+            </div>
+        </div>
+    }
+    
+</div> <!-- ./container -->
