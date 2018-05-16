@@ -38,8 +38,6 @@ namespace Roflan.Controllers
                             Email = model.Email,
                             Password = model.Password
                         };
-
-
                         //user.Gender = model.Gender;
 
                         _context.User.Add(user);

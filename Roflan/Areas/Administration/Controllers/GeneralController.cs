@@ -8,6 +8,7 @@ namespace Roflan.Areas.Administration.Controllers
 {
     public class GeneralController : Controller
     {
+        [Authorize]
         [HttpGet]
         public ActionResult List()
         {
