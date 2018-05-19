@@ -20,6 +20,6 @@ namespace Roflan.Entities
         [Required, StringLength(maximumLength: 255)]
         public string Email { get; set; }
 
-        public ICollection<Role> roles { get; set; }
+        //public ICollection<Role> Roles { get; set; }
     }
 }

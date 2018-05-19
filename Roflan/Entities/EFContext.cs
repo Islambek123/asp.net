@@ -14,6 +14,7 @@ namespace Roflan.Entities
         }
         public DbSet<User> User { get; set; }
         public DbSet<Role> Role { get; set; }
+        public DbSet<UserRoles> UserRoles { get; set; }
         //public DbSet<UserRole> UserRole { get; set; }
     }
 }

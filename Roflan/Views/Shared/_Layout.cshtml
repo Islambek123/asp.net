@@ -5,14 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title / @Request.Url.Host.</title>
     @Styles.Render("~/Content/css")
-    <style>
-        .field-validation-error {
-            color:red;
-        }
-    </style>
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
+     
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -27,8 +23,17 @@
             <div class="navbar-right">
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li>@Html.ActionLink("Login", "Login", "Authorize")</li>
-                        <li>@Html.ActionLink("Register", "Register", "Authorize")</li>
+                        @if (!Request.IsAuthenticated)
+                        {
+                            <li>@Html.ActionLink("Login", "Login", "Authorize")</li>
+                            <li>@Html.ActionLink("Register", "Register", "Authorize")</li>
+                        }
+                        else
+                        {
+                            <li><a>Hello @User.Identity.Name</a></li>
+                            <li>@Html.ActionLink("Log off", "LogOff", "Authorize")</li>
+                        }
+
                     </ul>
                 </div>
             </div>

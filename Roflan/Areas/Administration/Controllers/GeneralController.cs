@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Roflan.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,6 +14,13 @@ namespace Roflan.Areas.Administration.Controllers
         public ActionResult List()
         {
             return View();
+        }
+        [Authorize(Roles = "Admin")]
+        [HttpPost]
+        public ActionResult List(RegisterViewModel model)
+        {
+            
+            return View(model);
         }
     }
 }

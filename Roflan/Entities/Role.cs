@@ -10,7 +10,8 @@ namespace Roflan.Entities
     {
         [Key]
         public int Id { get; set; }
-        [Required, MaxLength(255)]
+        [Required, StringLength(maximumLength: 255)]
         public string Name { get; set; }
+        //public ICollection<User> Users { get; set; }
     }
 }

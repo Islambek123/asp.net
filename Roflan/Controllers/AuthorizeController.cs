@@ -58,28 +58,21 @@ namespace Roflan.Controllers
         [HttpPost]
         public ActionResult Login(LoginViewModel model)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && Membership.ValidateUser(model.Email, model.Password))
             {
-                using (_context = new EFContext())
-                {
-                    //якщо юзер null -> створить його
-                    var tUser = _context.User.SingleOrDefault(t => t.Email == model.Email
-                    && t.Password == model.Password
-                    && t.Email == model.Email);
-
-                    if (tUser != null)
-                    {
-                        //            var user = dc.tbl_User
-                        //.Where(a => a.UserName.Equals(model.Username) &&
-                        //a.Password.Equals(model.Password)).FirstOrDefault();
-
-                        return RedirectToAction("Index", "Home");
-                    }
-                }
+                FormsAuthentication.SetAuthCookie(model.Email, false);
+                return RedirectToAction("Index", "Home");
             }
             //errorState
             ModelState.AddModelError("Password", "Wrong Data.");
             return View(model);
+        }
+        [HttpGet]
+        public ActionResult LogOff()
+        {
+            FormsAuthentication.SignOut();
+            //AuthenticationManager.SignOut();
+            return RedirectToAction("Index", "Home");
         }
     }
 }

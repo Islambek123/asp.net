@@ -162,15 +162,18 @@
     <Compile Include="Areas\Administration\Controllers\GeneralController.cs" />
     <Compile Include="Controllers\AuthorizeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Core\Security\CustomMembership.cs" />
+    <Compile Include="Core\Security\CustomRoleProvider.cs" />
     <Compile Include="Entities\EFContext.cs" />
     <Compile Include="Entities\Role.cs" />
     <Compile Include="Entities\User.cs" />
+    <Compile Include="Entities\UserRoles.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201805162141215_121211sadas11111dasdasd3.cs" />
-    <Compile Include="Migrations\201805162141215_121211sadas11111dasdasd3.Designer.cs">
-      <DependentUpon>201805162141215_121211sadas11111dasdasd3.cs</DependentUpon>
+    <Compile Include="Migrations\201805191649474_123111111111113.cs" />
+    <Compile Include="Migrations\201805191649474_123111111111113.Designer.cs">
+      <DependentUpon>201805191649474_123111111111113.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\UserViewModels.cs" />
@@ -240,8 +243,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201805162141215_121211sadas11111dasdasd3.resx">
-      <DependentUpon>201805162141215_121211sadas11111dasdasd3.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201805191649474_123111111111113.resx">
+      <DependentUpon>201805191649474_123111111111113.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
