@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using System.Web.Services.Description;
 
 namespace Roflan.Controllers
 {
@@ -38,17 +39,23 @@ namespace Roflan.Controllers
                             Email = model.Email,
                             Password = model.Password
                         };
+                        var userRole = new UserRoles()
+                        {
+                            Users = user,
+                            Roles = _context.Role.Where(x => x.Name == "User").SingleOrDefault()
+                        };
+                        
                         //user.Gender = model.Gender;
-
-                        _context.User.Add(user);
+                        
+                        _context.UserRoles.Add(userRole);
                     }
                     _context.SaveChanges();
                 }
 
-                return View(model);
+                return RedirectToAction("Index", "Home");
                 //return RedirectToAction("profile", "person", new { personID = Person.personID });
             }
-            return View();
+            return View(model);
         }
         [HttpGet]
         public ActionResult Login()
@@ -61,6 +68,7 @@ namespace Roflan.Controllers
             if (ModelState.IsValid && Membership.ValidateUser(model.Email, model.Password))
             {
                 FormsAuthentication.SetAuthCookie(model.Email, false);
+                //Roles.AddUserToRole(model.Email, "Admin");
                 return RedirectToAction("Index", "Home");
             }
             //errorState

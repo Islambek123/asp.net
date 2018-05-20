@@ -36,7 +36,7 @@ namespace Roflan.Migrations
                         Roles = admin
                     };
 
-                    context.UserRoles.Add(userRole); // will also add comment3
+                    context.UserRoles.Add(userRole); 
                     context.SaveChanges();
                 }
                 if (!context.Role.Any(r => r.Name == "User") && !context.UserRoles.Any(r => r.Roles.Name == "User"))
