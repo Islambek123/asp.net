@@ -15,53 +15,32 @@ namespace Roflan.Migrations
 
         protected override void Seed(Roflan.Entities.EFContext context)
         {
-            using (context = new Entities.EFContext())
-            {
-                if (!context.Role.Any(r=>r.Name == "Admin") && !context.UserRoles.Any(r=> r.Roles.Name == "Admin"))
-                {
-                    var user = new User()
-                    {
-                        FirstName = "admin",
-                        LastName = "admin",
-                        Email = "admin@gmail.com",
-                        Password = "admin"
-                    };
-                    var admin = new Role()
-                    {
-                        Name = "Admin"
-                    };
-                    var userRole = new UserRoles
-                    {
-                        Users = user,
-                        Roles = admin
-                    };
+            context.User.AddOrUpdate(
+                           h => h.Id,   // Use Name (or some other unique field) instead of Id
+                           new User()
+                           {
+                               Id = 1,
+                               FirstName = "admin",
+                               LastName = "admin",
+                               Email = "admin@gmail.com",
+                               Password = "admin"
+                           });
 
-                    context.UserRoles.Add(userRole); 
-                    context.SaveChanges();
-                }
-                if (!context.Role.Any(r => r.Name == "User") && !context.UserRoles.Any(r => r.Roles.Name == "User"))
-                {
-                    var user = new User()
-                    {
-                        FirstName = "user",
-                        LastName = "user",
-                        Email = "user@gmail.com",
-                        Password = "user"
-                    };
-                    var customUser = new Role()
-                    {
-                        Name = "User"
-                    };
-                    var userRole = new UserRoles
-                    {
-                        Users = user,
-                        Roles = customUser
-                    };
+            context.Role.AddOrUpdate(
+                           h => h.Id,   // Use Name (or some other unique field) instead of Id
+                           new Role
+                           {
+                               Id = 1,
+                               Name = "Admin"
+                           });
+            context.UserRoles.AddOrUpdate(
+                           h => new { h.UserId, h.RoleId },   // Use Name (or some other unique field) instead of Id
+                           new UserRoles
+                           {
+                               UserId = 1,
+                               RoleId = 1
+                           });
 
-                    context.UserRoles.Add(userRole); // will also add comment3
-                    context.SaveChanges();
-                }
-            }
         }
     }
 }

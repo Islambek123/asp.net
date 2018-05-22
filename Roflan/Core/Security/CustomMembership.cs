@@ -1,5 +1,4 @@
-﻿
-using Roflan.Entities;
+﻿using Roflan.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,13 +8,13 @@ using System.Web.Security;
 
 namespace Roflan.Core.Security
 {
-    
+
     public class CustomMembership : MembershipProvider
     {
-        private static List<User> UserList = new List<User>();
+        //private static List<User> UserList = new List<User>();
 
         private static EFContext eFContext;
-        
+
         //private static readonly List<User> Users = new List<User> {
         //    new User {UserName="Admin", Password="123456"},
         //    new User {UserName="Manager", Password="123456"},
@@ -25,9 +24,12 @@ namespace Roflan.Core.Security
         {
             using (eFContext = new EFContext())
             {
-                UserList = eFContext.User.ToList();
+                var user = eFContext.User.SingleOrDefault(u => u.Email == username && u.Password == password);
+                if (user != null)
+                    return true;
+                //UserList = eFContext.User.ToList();
             }
-            return UserList.Exists(m => m.Email == username && m.Password == password);
+            return false;//UserList.Exists(m => m.Email == username && m.Password == password);
         }
         public override string ApplicationName
         {

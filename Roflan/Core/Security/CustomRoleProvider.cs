@@ -1,9 +1,12 @@
-﻿using System.Web.Security;
-
+﻿using Roflan.Entities;
+using System.Web.Security;
+using System.Linq;
+using System.Data.Entity;
 namespace Roflan.Core.Security
 {
     public class CustomRoleProvider : RoleProvider
     {
+        private static EFContext eFContext;
         public override void AddUsersToRoles(string[] usernames, string[] roleNames)
         {
             throw new System.NotImplementedException();
@@ -43,23 +46,36 @@ namespace Roflan.Core.Security
 
         public override string[] GetRolesForUser(string username)
         {
-            switch (username)
+            string[] roles = new string[0];
+            using (eFContext = new EFContext())
             {
-                case "Admin":
-                    {
-                        return new[] { "Maneger", "Administrator" };
-                    }
-                case "Manager":
-                    {
-                        return new[] { "Operator", "Maneger" };
-                    }
-                case "Georges":
-                    {
-                        return new[] { "Customer" };
-                    }
-                default:
-                    return new string[] { };
+                var user = eFContext.User
+                    .Include(u => u.UserRoles)
+                    .SingleOrDefault(u => u.Email == username);
+                if (user != null)
+                {
+                    roles = user.UserRoles
+                        .Select(r => r.Roles.Name).ToArray();
+                }
             }
+            return roles;
+            //switch (username)
+            //{
+            //    case "Admin":
+            //        {
+            //            return new[] { "Maneger", "Administrator" };
+            //        }
+            //    case "Manager":
+            //        {
+            //            return new[] { "Operator", "Maneger" };
+            //        }
+            //    case "Georges":
+            //        {
+            //            return new[] { "Customer" };
+            //        }
+            //    default:
+            //        return new string[] { };
+            //}
         }
 
         public override string[] GetUsersInRole(string roleName)

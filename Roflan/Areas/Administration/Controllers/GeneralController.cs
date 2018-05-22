@@ -9,31 +9,42 @@ using System.Web.Mvc;
 
 namespace Roflan.Areas.Administration.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class GeneralController : Controller
     {
         private static EFContext _context;
         private static List<UserRoles> list;
-        //[HttpGet]
-        //public ActionResult List()
-        //{
-        //    return View();
-        //}
-        [HttpPost]
+
+        public ActionResult List()
+        {
+            return RedirectToAction("List", "General");
+        }
+        [HttpGet]
         public ActionResult List(RegisterViewModel model)
         {
+            List<RegisterViewModel> models = new List<RegisterViewModel>();
+
             foreach (var item in list)
             {
                 model.Email = item.Users.Email;
+                model.FirstName = item.Users.FirstName;
+                model.LastName = item.Users.LastName;
+                model.Password = item.Users.Password;
+                models.Add(model);
             }
-            return View(model);
+
+            return View(models);
         }
         public GeneralController()
         {
-            using (_context = new EFContext())
+            if (_context == null)
             {
-                list = _context.UserRoles.ToList();
+                using (_context = new EFContext())
+                {
+                    list = _context.UserRoles.ToList();
+                }
             }
+            
         }
     }
 }

@@ -1,10 +1,13 @@
 ﻿@model IEnumerable<Roflan.Models.RegisterViewModel>
 
 @{
+    /**/
+
     ViewBag.Title = "List";
 }
 
-@using (Html.BeginForm("Login", "Authorize", FormMethod.Post, new { @class = "form-horizontal" }))
+<h2>List</h2>
+@using (Html.BeginForm("List", "General", FormMethod.Post, new { @class = "form-horizontal" }))
 {
     <p>
         @Html.ActionLink("Create New", "Create")
@@ -57,5 +60,4 @@
 
     </table>
 }
-
 

@@ -11,7 +11,7 @@ namespace Roflan.Entities
         [Key]
         public int Id { get; set; }
         [Required, StringLength(maximumLength: 255), Display(Name = "First Name")]
-        
+
         public string FirstName { get; set; }
         [Required, StringLength(maximumLength: 255), Display(Name = "Last Name")]
         public string LastName { get; set; }
@@ -20,6 +20,6 @@ namespace Roflan.Entities
         [Required, StringLength(maximumLength: 255)]
         public string Email { get; set; }
 
-        //public ICollection<Role> Roles { get; set; }
+        public ICollection<UserRoles> UserRoles { get; set; }
     }
 }

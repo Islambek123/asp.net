@@ -44,9 +44,9 @@ namespace Roflan.Controllers
                             Users = user,
                             Roles = _context.Role.Where(x => x.Name == "User").SingleOrDefault()
                         };
-                        
+
                         //user.Gender = model.Gender;
-                        
+
                         _context.UserRoles.Add(userRole);
                     }
                     _context.SaveChanges();
