@@ -26,6 +26,7 @@ namespace Roflan.Migrations
                                Password = "admin"
                            });
 
+
             context.Role.AddOrUpdate(
                            h => h.Id,   // Use Name (or some other unique field) instead of Id
                            new Role
@@ -39,6 +40,32 @@ namespace Roflan.Migrations
                            {
                                UserId = 1,
                                RoleId = 1
+                           });
+
+            context.User.AddOrUpdate(
+                           h => h.Id,   // Use Name (or some other unique field) instead of Id
+                           new User()
+                           {
+                               Id = 2,
+                               FirstName = "user",
+                               LastName = "user",
+                               Email = "user@gmail.com",
+                               Password = "user"
+                           });
+
+            context.Role.AddOrUpdate(
+                           h => h.Id,   // Use Name (or some other unique field) instead of Id
+                           new Role
+                           {
+                               Id = 2,
+                               Name = "User"
+                           });
+            context.UserRoles.AddOrUpdate(
+                           h => new { h.UserId, h.RoleId },   // Use Name (or some other unique field) instead of Id
+                           new UserRoles
+                           {
+                               UserId = 2,
+                               RoleId = 2
                            });
 
         }

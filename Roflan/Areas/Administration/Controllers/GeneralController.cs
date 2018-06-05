@@ -1,4 +1,5 @@
-﻿using Roflan.Entities;
+﻿using Roflan.Areas.Administration.Models;
+using Roflan.Entities;
 using Roflan.Models;
 using System;
 using System.Collections;
@@ -13,38 +14,70 @@ namespace Roflan.Areas.Administration.Controllers
     public class GeneralController : Controller
     {
         private static EFContext _context;
-        private static List<UserRoles> list;
 
-        public ActionResult List()
-        {
-            return RedirectToAction("List", "General");
-        }
         [HttpGet]
-        public ActionResult List(RegisterViewModel model)
+        public ActionResult List(int page = 1)
         {
-            List<RegisterViewModel> models = new List<RegisterViewModel>();
-
-            foreach (var item in list)
+            RegisterListViewModel registerList = new RegisterListViewModel();
+            registerList.RegisterList = new List<RegisterViewModel>();
+            registerList.PageInfo = new PageInfo();
+            int pageSize = 20; // количество объектов на страницу
+            foreach (var user in _context
+                .UserRoles
+                .OrderBy(u => u.UserId)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize).ToList())
             {
-                model.Email = item.Users.Email;
-                model.FirstName = item.Users.FirstName;
-                model.LastName = item.Users.LastName;
-                model.Password = item.Users.Password;
-                models.Add(model);
+                RegisterViewModel model =
+                    new RegisterViewModel();
+                model.UserId = user.UserId;
+                model.Email = user.Users.Email;
+                model.FirstName = user.Users.FirstName;
+                model.LastName = user.Users.LastName;
+                model.Password = user.Users.Password;
+                model.RoleName = user.Roles.Name;
+                registerList.RegisterList.Add(model);
             }
+            //int countRow = _context.UserRoles.Count();
+            //ViewBag.CountUsers = countRow;
 
-            return View(models);
+            IEnumerable<RegisterViewModel> items = registerList.RegisterList;
+            PageInfo pageInfo = new PageInfo
+            {
+                PageNumber = page,
+                PageSize = pageSize,
+                TotalItems = _context.UserRoles.Count()
+            };
+            registerList.PageInfo = pageInfo;
+
+            return View(registerList);
+        }
+        //[HttpGet]
+        //public ActionResult Delete(int id)
+        //{
+        //    var delelCategory = _context
+        //        .User
+        //        .Select(c => new User
+        //        {
+        //            Id = c.Id
+        //        })
+        //        .SingleOrDefault(c => c.Id == id);
+        //    return View(delelCategory);
+        //}
+        [HttpPost]
+        public ContentResult Delete(int userId)
+        {
+
+            var user = _context.User
+            .SingleOrDefault(c => c.Id == userId);
+            _context.User.Remove(user);
+            //_context.SaveChanges();
+            return Content(userId.ToString());
+
         }
         public GeneralController()
         {
-            if (_context == null)
-            {
-                using (_context = new EFContext())
-                {
-                    list = _context.UserRoles.ToList();
-                }
-            }
-            
+            _context = new EFContext();
         }
     }
 }

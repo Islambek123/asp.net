@@ -38,14 +38,15 @@ namespace Roflan.Controllers
                             LastName = model.LastName,
                             Email = model.Email,
                             Password = model.Password
+
                         };
+                        //RSACryptoServiceProvider RSA = new RSACryptoServiceProvider();
                         var userRole = new UserRoles()
                         {
                             Users = user,
                             Roles = _context.Role.Where(x => x.Name == "User").SingleOrDefault()
                         };
-
-                        //user.Gender = model.Gender;
+                        
 
                         _context.UserRoles.Add(userRole);
                     }

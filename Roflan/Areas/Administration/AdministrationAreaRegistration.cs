@@ -17,7 +17,7 @@ namespace Roflan.Areas.Administration
             context.MapRoute(
                 "Administration_default",
                 "Administration/{controller}/{action}/{id}",
-                new { controller="General", action = "Index", id = UrlParameter.Optional }
+                new { controller="General", action = "List", id = UrlParameter.Optional }
             );
         }
     }

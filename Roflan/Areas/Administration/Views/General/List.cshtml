@@ -1,63 +1,86 @@
-﻿@model IEnumerable<Roflan.Models.RegisterViewModel>
-
+﻿@model Roflan.Models.RegisterListViewModel
+@using Roflan.Areas.Administration.Helpers
+@{
+    ViewBag.Title = "UsersTable";
+}
 @{
     /**/
 
     ViewBag.Title = "List";
 }
 
-<h2>List</h2>
-@using (Html.BeginForm("List", "General", FormMethod.Post, new { @class = "form-horizontal" }))
-{
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.FirstName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LastName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Password)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NewPassword)
-            </th>
-            <th></th>
-        </tr>
+@Html.Partial("UsersTable", Model.RegisterList)
+@Html.Partial("_DeletePopUp")
 
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FirstName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.LastName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Email)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Password)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NewPassword)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-                </td>
-            </tr>
-        }
+<br />
+<div class="container">
+    <div class="row">
+        <div class="col-md-10">
+            <div class="btn-group">
+                @Html.PageLinks(Model.PageInfo, x => Url.Action("List", new { page = x }))
+            </div>
+        </div>
+        <div class="col-md-2">
+            <a href="#" data-toggle="modal" data-userId="@Model.RegisterList" class="btn btn-danger delUser">Delete Selected</a>
+        </div>
 
-    </table>
+    </div>
+</div>
+
+@section scripts
+    {
+    <script>
+        $(".delUser").on("click", function () {
+
+            $('#myModal').modal('show');
+
+            var del = $("#deleteYes");
+
+
+            del.on("click", function () {
+
+                $(".checkUser").each(function () {
+                    var idDelete = 0;
+
+                    if ($(this).is(':checked')) {
+                        idDelete = $(this).attr('data-id');
+                        var model = { UserId: idDelete };
+                        
+
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("Delete", "General", new { area = "Administration"})',
+                    data: model,
+                    cache: false,
+                    success: function () {
+                       
+                    }
+                        });
+                var whichtr = $(this).closest("tr");
+                whichtr.remove();
+                    }
+
+            });
+
+            $('#myModal').modal('toggle');
+            });
+        })
+    </script>
+
+    <script>
+        $("#SelectAll").on("click", function () {
+            //$('#myModal').modal('show');
+            $(".checkUser").each(function () {
+                //alert("yyy");
+                if ($("#SelectAll").prop('checked') == true) {
+                    $(this).prop('checked', true);
+                }
+                else {
+                    $(this).prop('checked', false);
+                }
+
+            });
+
+        })
+    </script>
 }
-

@@ -19,7 +19,10 @@ namespace Roflan.Entities
         public string Password { get; set; }
         [Required, StringLength(maximumLength: 255)]
         public string Email { get; set; }
-
+        //[Required, StringLength(maximumLength:255)]
+        //public string PasswordHash { get; set; }
+        //[Required, StringLength(maximumLength: 255)]
+        //public string HashPassword { get; set; }
         public ICollection<UserRoles> UserRoles { get; set; }
     }
 }

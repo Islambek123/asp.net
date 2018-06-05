@@ -159,7 +159,11 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Administration\AdministrationAreaRegistration.cs" />
+    <Compile Include="Areas\Administration\Controllers\AccountController.cs" />
     <Compile Include="Areas\Administration\Controllers\GeneralController.cs" />
+    <Compile Include="Areas\Administration\Helpers\PagingHelpers.cs" />
+    <Compile Include="Areas\Administration\Models\DeleteUsersViewModel.cs" />
+    <Compile Include="Areas\Administration\Models\Nondomen Models\PageInfoModel.cs" />
     <Compile Include="Controllers\AuthorizeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Core\Security\CustomMembership.cs" />
@@ -195,6 +199,8 @@
     <Content Include="Areas\Administration\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Administration\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Administration\Views\General\List.cshtml" />
+    <Content Include="Areas\Administration\Views\General\UsersTable.cshtml" />
+    <Content Include="Areas\Administration\Views\General\_DeletePopUp.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -226,7 +232,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Administration\Models\" />
+    <Folder Include="Areas\Administration\Views\Account\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
