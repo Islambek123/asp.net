@@ -168,16 +168,18 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Core\Security\CustomMembership.cs" />
     <Compile Include="Core\Security\CustomRoleProvider.cs" />
+    <Compile Include="Entities\CategoryRepistory\Category.cs" />
+    <Compile Include="Entities\CategoryRepistory\Subcategory.cs" />
     <Compile Include="Entities\EFContext.cs" />
-    <Compile Include="Entities\Role.cs" />
-    <Compile Include="Entities\User.cs" />
-    <Compile Include="Entities\UserRoles.cs" />
+    <Compile Include="Entities\UserRepository\Role.cs" />
+    <Compile Include="Entities\UserRepository\User.cs" />
+    <Compile Include="Entities\UserRepository\UserRoles.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201805191649474_123111111111113.cs" />
-    <Compile Include="Migrations\201805191649474_123111111111113.Designer.cs">
-      <DependentUpon>201805191649474_123111111111113.cs</DependentUpon>
+    <Compile Include="Migrations\201806071422266_Add 2123.cs" />
+    <Compile Include="Migrations\201806071422266_Add 2123.Designer.cs">
+      <DependentUpon>201806071422266_Add 2123.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\UserViewModels.cs" />
@@ -251,8 +253,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201805191649474_123111111111113.resx">
-      <DependentUpon>201805191649474_123111111111113.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201806071422266_Add 2123.resx">
+      <DependentUpon>201806071422266_Add 2123.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

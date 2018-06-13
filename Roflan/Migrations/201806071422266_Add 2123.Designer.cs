@@ -7,13 +7,13 @@ namespace Roflan.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class _123111111111113 : IMigrationMetadata
+    public sealed partial class Add2123 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(_123111111111113));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Add2123));
         
         string IMigrationMetadata.Id
         {
-            get { return "201805191649474_123111111111113"; }
+            get { return "201806071422266_Add 2123"; }
         }
         
         string IMigrationMetadata.Source

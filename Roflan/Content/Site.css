@@ -26,3 +26,20 @@ textarea {
 .field-validation-error {
     color: red;
 }
+.navbar-nav > li > .dropdown-menu {
+    background-color: rgba(224, 224, 224, 0.30);
+    
+}
+.glyphicon glyphicon glyphicon-user {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+    font-style: normal;
+}
+#main-nav {
+    border-bottom: 2px solid #cd2122;
+    /*font-family: Georgia, serif;*/
+    
+}
+    #main-nav a {
+        /*color: white !important;*/
+        color: #a9a6a6
+    }
