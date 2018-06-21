@@ -1,0 +1,71 @@
+﻿
+@{
+    ViewBag.Title = "Profile";
+}
+@model Roflan.Models.RegisterViewModel
+
+@using (Html.BeginForm("Edit", "Settings", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    <div class="container-fluid text-left">
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-3 col-sm-offset-3">
+                    <input type="text" name="Email" class="form-control" value="@Model.Email" disabled>
+                    @Html.ValidationMessageFor(model => model.Email)
+                </div>
+                <label class="control-label text-left">Email</label>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3 col-sm-offset-3">
+                    <input type="text" name="FirstName" id="FirstName" class="form-control" value="@Model.FirstName">
+                    @Html.ValidationMessageFor(model => model.FirstName)
+                </div>
+                <label class="control-label text-left">First Name</label>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3 col-sm-offset-3">
+                    <input type="text" name="LastName" id="LastName" class="form-control" value="@Model.LastName">
+                    @Html.ValidationMessageFor(model => model.LastName)
+                </div>
+                <label class="control-label text-left">Last Name</label>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3 col-sm-offset-3">
+                    @{
+                        string passwordString = "";
+
+                        for (int i = 0; i < Model.Password.Length; i++)
+                        {
+                            passwordString += "*";
+                        }
+                    }
+                    <input type="password" name="Password" class="form-control" value="@Html.Raw(passwordString)" disabled>
+
+                    @Html.ValidationMessageFor(model => model.Password)
+
+                </div>
+                <label class="control-label text-left">Password</label>
+
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3 col-sm-offset-4">
+                    @{
+
+                        var user = new Roflan.Models.EditModel
+                        {
+                            FirstName = this.Request.Form["FirstName"],
+                            LastName = this.Request.Form["LastName"],
+                            Password = this.Request.Form["Password"]
+                        };
+                        //{
+                        //    FirstName = this.Request.Form["FirstName"],
+                        //    LastName = this.Request.Form["LastName"]
+                        //};
+                    }
+                    <input class="btn btn-primary" type="submit" value="Save Changes" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+}

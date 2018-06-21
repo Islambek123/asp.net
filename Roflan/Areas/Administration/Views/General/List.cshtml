@@ -15,21 +15,22 @@
 <br />
 <div class="container">
     <div class="row">
-        <div class="col-md-10">
-            <div class="btn-group">
-                @Html.PageLinks(Model.PageInfo, x => Url.Action("List", new { page = x }))
+        <div class="form-group">
+            <div class="col-md-10">
+                <div class="btn-group">
+                    @Html.PageLinks(Model.PageInfo, x => Url.Action("List", new { page = x }))
+                </div>
             </div>
-        </div>
-        <div class="col-md-2">
-            <a href="#" data-toggle="modal" data-userId="@Model.RegisterList" class="btn btn-danger delUser">Delete Selected</a>
-        </div>
-
+            </div>
+            <div class="col-md-2">
+                <a href="#" data-toggle="modal" data-userId="@Model.RegisterList" class="btn btn-danger delUser">Delete Selected</a>
+            </div>
     </div>
 </div>
 
 @section scripts
     {
-    <script>
+<script>
         $(".delUser").on("click", function () {
 
             $('#myModal').modal('show');
@@ -39,33 +40,35 @@
 
             del.on("click", function () {
 
+                var idDelete = [];
                 $(".checkUser").each(function () {
-                    var idDelete = 0;
 
-                    if ($(this).is(':checked')) {
-                        idDelete = $(this).attr('data-id');
-                        var model = { UserId: idDelete };
-                        
+
+                    if ($(this).is(':checked'))
+                    {
+                        idDelete.push($(this).attr('data-id'));
+                    }
+
+
+
+                });
 
                 $.ajax({
                     type: 'POST',
                     url: '@Url.Action("Delete", "General", new { area = "Administration"})',
-                    data: model,
+                    data: { UserId: idDelete },
                     cache: false,
                     success: function () {
-                       
-                    }
-                        });
-                var whichtr = $(this).closest("tr");
-                whichtr.remove();
-                    }
 
-            });
+                    }
+                    });
+                    var whichtr = $(this).closest("tr");
+                whichtr.remove();
 
             $('#myModal').modal('toggle');
             });
         })
-    </script>
+</script>
 
     <script>
         $("#SelectAll").on("click", function () {
@@ -78,7 +81,6 @@
                 else {
                     $(this).prop('checked', false);
                 }
-
             });
 
         })

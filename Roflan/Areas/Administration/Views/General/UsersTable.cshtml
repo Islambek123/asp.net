@@ -33,20 +33,17 @@
 
         <tr>
             <td>
-                @*@Html.CheckBox(item.UserId.ToString(), false)*@
                 <input type="checkbox" class="checkUser" data-id="@item.UserId" />
             </td>
             <td>
                 @if (User.Identity.Name == item.Email)
                 {
-                   <a>You-></a> @Html.DisplayFor(modelItem => item.FirstName)
+                    @Html.DisplayFor(modelItem => item.FirstName) <span>←<a>You</a></span>
                 }
                 else
                 {
                     @Html.DisplayFor(modelItem => item.FirstName)
-
                 }
-
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.LastName)
@@ -61,9 +58,9 @@
                 @Html.DisplayFor(modelItem => item.RoleName)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                
+                @Html.ActionLink("Edit", "Edit", "General", null, new { id = item.UserId }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ })
             </td>
 
         </tr>

@@ -13,7 +13,7 @@ namespace Roflan.Areas.Administration.Controllers
     [Authorize(Roles = "Admin")]
     public class GeneralController : Controller
     {
-        private static EFContext _context;
+        private static EFContext context;
 
         [HttpGet]
         public ActionResult List(int page = 1)
@@ -22,7 +22,7 @@ namespace Roflan.Areas.Administration.Controllers
             registerList.RegisterList = new List<RegisterViewModel>();
             registerList.PageInfo = new PageInfo();
             int pageSize = 20; // количество объектов на страницу
-            foreach (var user in _context
+            foreach (var user in context
                 .UserRoles
                 .OrderBy(u => u.UserId)
                 .Skip((page - 1) * pageSize)
@@ -46,7 +46,7 @@ namespace Roflan.Areas.Administration.Controllers
             {
                 PageNumber = page,
                 PageSize = pageSize,
-                TotalItems = _context.UserRoles.Count()
+                TotalItems = context.UserRoles.Count()
             };
             registerList.PageInfo = pageInfo;
 
@@ -65,19 +65,50 @@ namespace Roflan.Areas.Administration.Controllers
         //    return View(delelCategory);
         //}
         [HttpPost]
-        public ContentResult Delete(int userId)
+        public ActionResult Delete(int[] userId)
         {
+            for (int i = 0; i < userId.Length; i++)
+            {
+                int curr = userId[i];
+                User user = context.User.SingleOrDefault(c => c.Id == curr);
 
-            var user = _context.User
-            .SingleOrDefault(c => c.Id == userId);
-            _context.User.Remove(user);
-            //_context.SaveChanges();
-            return Content(userId.ToString());
+                if (user.Email != User.Identity.Name)
+                {
+                    context.User.Remove(user);
+                    context.SaveChanges();
+                }
+            }
+
+            return View();
 
         }
         public GeneralController()
         {
-            _context = new EFContext();
+            context = new EFContext();
         }
+
+
+        [HttpGet]
+        public ActionResult Edit(int id)
+        {
+            UserRoles user = context.UserRoles.FirstOrDefault(u => u.Users.Id == id);
+
+            RegisterViewModel model = new RegisterViewModel()
+            {
+                Email = user.Users.Email,
+                FirstName = user.Users.FirstName,
+                LastName = user.Users.LastName,
+                Password = user.Users.Password,
+                RoleName = user.Roles.Name
+            };
+
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult Edit()
+        {
+            return View();
+        }
+
     }
 }

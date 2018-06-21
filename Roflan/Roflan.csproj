@@ -159,13 +159,12 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Administration\AdministrationAreaRegistration.cs" />
-    <Compile Include="Areas\Administration\Controllers\AccountController.cs" />
     <Compile Include="Areas\Administration\Controllers\GeneralController.cs" />
     <Compile Include="Areas\Administration\Helpers\PagingHelpers.cs" />
-    <Compile Include="Areas\Administration\Models\DeleteUsersViewModel.cs" />
     <Compile Include="Areas\Administration\Models\Nondomen Models\PageInfoModel.cs" />
     <Compile Include="Controllers\AuthorizeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\SettingsController.cs" />
     <Compile Include="Core\Security\CustomMembership.cs" />
     <Compile Include="Core\Security\CustomRoleProvider.cs" />
     <Compile Include="Entities\CategoryRepistory\Category.cs" />
@@ -180,6 +179,10 @@
     <Compile Include="Migrations\201806071422266_Add 2123.cs" />
     <Compile Include="Migrations\201806071422266_Add 2123.Designer.cs">
       <DependentUpon>201806071422266_Add 2123.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806192100097_12312312.cs" />
+    <Compile Include="Migrations\201806192100097_12312312.Designer.cs">
+      <DependentUpon>201806192100097_12312312.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\UserViewModels.cs" />
@@ -203,6 +206,7 @@
     <Content Include="Areas\Administration\Views\General\List.cshtml" />
     <Content Include="Areas\Administration\Views\General\UsersTable.cshtml" />
     <Content Include="Areas\Administration\Views\General\_DeletePopUp.cshtml" />
+    <Content Include="Areas\Administration\Views\General\Edit.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -214,7 +218,9 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -231,10 +237,10 @@
     <Content Include="Views\Authorize\Register.cshtml" />
     <Content Include="Views\Authorize\Login.cshtml" />
     <Content Include="Views\Authorize\_SuccessfulAction.cshtml" />
+    <Content Include="Views\Settings\Profile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Administration\Views\Account\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -255,6 +261,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201806071422266_Add 2123.resx">
       <DependentUpon>201806071422266_Add 2123.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806192100097_12312312.resx">
+      <DependentUpon>201806192100097_12312312.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

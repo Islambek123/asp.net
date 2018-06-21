@@ -43,3 +43,10 @@ textarea {
         /*color: white !important;*/
         color: #a9a6a6
     }
+.form-horizontal .control-label.text-left {
+    text-align: left;
+}
+.user-name-text {
+    color: #1a0dab;
+    cursor: pointer;
+}

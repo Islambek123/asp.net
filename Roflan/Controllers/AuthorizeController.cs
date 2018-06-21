@@ -13,8 +13,13 @@ namespace Roflan.Controllers
     public class AuthorizeController : Controller
     {
         // GET: Autorize
-        private static EFContext _context;
+        private static EFContext context;
 
+        
+        public AuthorizeController()
+        {
+            context = new EFContext();
+        }
         [HttpGet]
         public ActionResult Register()
         {
@@ -23,35 +28,37 @@ namespace Roflan.Controllers
         [HttpPost]
         public ActionResult Register(RegisterViewModel model)
         {
-            if (ModelState.IsValid)
+            if (context.UserRoles.SingleOrDefault(u => u.Users.Email == model.Email) != null)
             {
-                using (_context = new EFContext())
+                ModelState.AddModelError("Email", "Такий користувач уже зареєстрований");
+            }
+            else if (ModelState.IsValid)
+            {
+                //якщо юзер null -> створить його
+                if (context.User.SingleOrDefault(t => t.FirstName == model.FirstName
+                && t.LastName == model.LastName
+                && t.Email == model.Email) == null)
                 {
-                    //якщо юзер null -> створить його
-                    if (_context.User.SingleOrDefault(t => t.FirstName == model.FirstName
-                    && t.LastName == model.LastName
-                    && t.Email == model.Email) == null)
+                    var user = new User()
                     {
-                        var user = new User()
-                        {
-                            FirstName = model.FirstName,
-                            LastName = model.LastName,
-                            Email = model.Email,
-                            Password = model.Password
+                        FirstName = model.FirstName,
+                        LastName = model.LastName,
+                        Email = model.Email,
+                        Password = model.Password
 
-                        };
-                        //RSACryptoServiceProvider RSA = new RSACryptoServiceProvider();
-                        var userRole = new UserRoles()
-                        {
-                            Users = user,
-                            Roles = _context.Role.Where(x => x.Name == "User").SingleOrDefault()
-                        };
-                        
+                    };
+                    //RSACryptoServiceProvider RSA = new RSACryptoServiceProvider();
+                    var userRole = new UserRoles()
+                    {
+                        Users = user,
+                        Roles = context.Role.Where(x => x.Name == "User").SingleOrDefault()
+                    };
 
-                        _context.UserRoles.Add(userRole);
-                    }
-                    _context.SaveChanges();
+
+                    context.UserRoles.Add(userRole);
                 }
+                context.SaveChanges();
+
 
                 return RedirectToAction("Index", "Home");
                 //return RedirectToAction("profile", "person", new { personID = Person.personID });
